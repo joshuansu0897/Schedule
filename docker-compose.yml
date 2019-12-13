@@ -1,0 +1,73 @@
+# Use root/example as user/password credentials
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    tty: true
+    volumes: 
+      - .:/usr/src/app
+    depends_on: 
+      - adminer
+      - db
+      - mongo
+      - mongo-express
+    environment: 
+      # postgres
+      - HOST_DB=db
+      - NAME_DB=ExampleDB
+      - USER_DB=postgres
+      - PASS_DB=example
+      - TYPE_DB=postgres
+      - PORT_DB=5432
+      - ERRASE_DB=true
+      # mongo
+      - URL_MONGO=mongo
+      - PORT_MONGO=27017
+      - USER_MONGO=root
+      - PASS_MONGO=example
+    command: npm run dev
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./DB/var/lib/postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: ExampleDB
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    depends_on: 
+      - db
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./DB/data/db:/data/db
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    depends_on: 
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
