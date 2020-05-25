@@ -3,12 +3,12 @@ version: '3'
 
 services:
   app:
-    build: .
+    build: ./
     ports:
-      - 3000:3000
+      - 80:3000
     tty: true
     volumes: 
-      - .:/usr/src/app
+      - ./:/usr/app
     depends_on: 
       - adminer
       - db
@@ -28,7 +28,7 @@ services:
       - PORT_MONGO=27017
       - USER_MONGO=root
       - PASS_MONGO=example
-    command: npm run dev
+    command: npm run start:dev
 
   db:
     image: postgres
