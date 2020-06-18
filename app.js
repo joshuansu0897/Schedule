@@ -18,8 +18,8 @@ sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
 
 app.use(bodyParser.json())
 
-const apiv1 = require('./src/logic/api')
+const api = require('./src/logic/api')
 
-app.use('/', apiv1)
+app.use('/', api)
 
 module.exports = app
