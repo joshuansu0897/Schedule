@@ -23,7 +23,7 @@
     "sequelize": "^5.19.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.2"
+    "nodemon": "^2.0.4"
   },
   "optionalDependencies": {
     "pm2": "^3.5.1"
