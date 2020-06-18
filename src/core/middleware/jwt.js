@@ -1,5 +1,5 @@
 'use strict'
-const { jwt, secret } = require('./secretJwt')
+const { jwt, secret } = require('./jwtUtils')
 
 module.exports = (req, res, next) => {
   if (req.url === '/signin' || req.url === '/signup') {

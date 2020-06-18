@@ -22,6 +22,7 @@ const sequelize = new Sequelize(name, user, pass, {
 })
 
 const db = {
+  User: require('../../../logic/user/user')(sequelize, Sequelize)
 }
 
 Object.keys(db).forEach(key => {
@@ -30,4 +31,21 @@ Object.keys(db).forEach(key => {
   }
 })
 
-module.exports = { db, sequelize }
+async function seed() {
+  await db.User.create(
+    {
+      Name: 'rwieruch',
+      Email: 'test@test.com',
+      Password: 'Password text'
+    }
+  )
+  await db.User.create(
+    {
+      Name: 'ddavids',
+      Email: 'test@test.com',
+      Password: 'Password text'
+    }
+  )
+}
+
+module.exports = { db, sequelize, seed }
