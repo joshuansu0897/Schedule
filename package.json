@@ -26,6 +26,6 @@
     "nodemon": "^2.0.4"
   },
   "optionalDependencies": {
-    "pm2": "^3.5.1"
+    "pm2": "^5.2.0"
   }
 }
